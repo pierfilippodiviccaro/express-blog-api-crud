@@ -1,17 +1,17 @@
-import {Articles} from '../data.js'
+import {articles} from '../data.js'
 
 // index
 function index(req,res){
     const risposta={
-        lunghezza: Articles.length,
-        totale: Articles
+        lunghezza: articles.length,
+        totale: articles
     }
     res.json(risposta)
 }
 //show
 function show(req,res){
     const id = req.params.id
-    const articolo = Articles.find(article=> article.id === id )
+    const articolo = articles.find(article=> article.id === id )
     if(articolo === undefined){
         res.status(404);
         }
@@ -23,12 +23,31 @@ function show(req,res){
 
 //store
 function store(req,res){
-    res.send("creo nuovo articolo")
+    const dati = req.body
+    const newId= articles[articles.length-1].id +1
+    console.log(newId);
+    const nuovoArt= {
+        id:newId,
+        path:dati.path,
+        title:dati.title,
+        description: dati.description,
+        ingredienti:dati.ingredienti
+      }
+      articles.push(nuovoArt)
+    res.status(201).json(nuovoArt)
 }
 //update
 function update (req,res){
-    const id = req.params.id
-    res.send("aggiorno l'articolo numero"+id)
+    const id = parseInt(req.params.id)
+    const articolo = articles.find((article)=>article.id===id)
+    const dati= req.body;
+
+    articolo.id= dati.id
+    articolo.path=dati.path
+    articolo.title=dati.title
+    articolo.description=dati.description
+    articolo.ingredienti=dati.ingredienti
+    res.json(articolo)
 }
 //modify
 function modify(req,res){
@@ -38,14 +57,14 @@ function modify(req,res){
 //delete
 function destroy (req,res){
 const id = req.params.id
- const articolo = Articles.findIndex(article=> article.id === id )
+ const articolo = articles.findIndex(article=> article.id === id )
     if(articolo === -1){
         res.status(404);
         return res.json({
             message:"articolo non disponibile"
         })
     }
-    Articles.splice(articolo, 1)
+    articles.splice(articolo, 1)
     res.status(204);
 }
 const controller = {

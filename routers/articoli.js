@@ -1,19 +1,19 @@
 import express from 'express'
-import  Articles  from '../controllers/articles.js'
+import  articleController  from '../controllers/articles.js'
 
 const router = express.Router()
 
 //index 
-router.get("/", Articles.index)
+router.get("/", articleController.index)
 //show
-router.get("/:id",Articles.show)
+router.get("/:id",articleController.show)
 //store 
-router.post("/",Articles.store)
+router.post("/",articleController.store)
 //update
-router.put("/:id",Articles.update)
+router.put("/:id",articleController.update)
 //modify
-router.patch("/:id",Articles.modify)
+router.patch("/:id",articleController.modify)
 //delete
-router.delete(":/id",Articles.destroy)
+router.delete("/:id",articleController.destroy)
 
 export default router 

@@ -3,6 +3,8 @@ import ArticlesRouter from './routers/articoli.js'
 const app = express()
 const port = 7000
 
+app.use(express.json())
+
 app.get("/",(req,res)=>{
     res.send("miao")
 })
