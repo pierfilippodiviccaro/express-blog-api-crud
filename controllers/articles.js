@@ -1,4 +1,4 @@
-import { Articles } from '../data.js'
+import {Articles} from '../data.js'
 
 // index
 function index(req,res){
@@ -14,12 +14,13 @@ function show(req,res){
     const articolo = Articles.find(article=> article.id === id )
     if(articolo === undefined){
         res.status(404);
-        return res.json({
-            message:"articolo non trovato"
-        })
+        }
+        else{
+            res.json(articolo)
+
+        }
     }
-    res.json(articolo)
-}
+
 //store
 function store(req,res){
     res.send("creo nuovo articolo")
@@ -47,3 +48,14 @@ const id = req.params.id
     Articles.splice(articolo, 1)
     res.status(204);
 }
+const controller = {
+    index,
+    show,
+    store,
+    update,
+    modify,
+    destroy
+
+}
+
+export default controller
